@@ -1,83 +1,78 @@
 package com.example.ac1.services;
 
-import java.time.LocalDateTime;
-import java.util.List;
-
-import org.springframework.stereotype.Repository;
-
 import com.example.ac1.controllers.EventController;
 import com.example.ac1.entidade.Event;
 import com.example.ac1.repositorio.EventRepository;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import facens.example.ac1.dto.DTO;
 
-public class EventService {
-    
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
-public class FuncionarioService {
+public class EventService 
+{
+    
+    private String errorMessage = "Exceção lançada em" + getClass().getName();
     
     @Autowired
-    EventRepository eventRepository;
-    EventService eventService;
-    EventController eventController;
+    private EventRepository repo;
 
-    public Event saveEvent(Event e){
-        eventRepository.save(e);
-        return e;
+    public Page<Event> getEvents(PageRequest pageRequest, String name, String place, String startDate, String description) 
+    {
+        return repo.find(pageRequest, name, place, startDate, description);
     }
 
-    public List<Event> getAllEvents(){
-        return eventRepository.findAll();
+    public Event getEventById(Long id) 
+    {
+        Optional<Event> op = repo.findById(id);
+        return op.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage));
     }
 
-    public Event getEventById(int id){
-        for(Event e: eventRepository.findAll()){
-            if(e.getId() == id){
-                return e;
-            }
+    public Event newEvent(DTO dto) 
+    {
+        Event event = new Event(dto);
+        event = repo.save(event);
+        return event;
+    }
+
+    public Event attEvent(Long id, DTO dto) 
+    {
+        try
+        {
+            Event event = repo.getOne(id);
+            event.setName(dto.getName());
+            event.setDescription(dto.getDescription());
+            event.setPlace(dto.getPlace());
+            event.setStartDate(dto.getStartDate());
+            event.setEndDate(dto.getEndDate());
+            event.setStartTime(dto.getStartTime());
+            event.setEndTime(dto.getEndTime());
+            event.setEmail(dto.getEmail());
+            event = repo.save(event);
+            return event;
+        } 
+        catch (Exception e)
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
         }
-        return null;
     }
 
-	public void deleteEvent(Event e) {
-        if(getEventById(e.getId()) != null){
-            eventRepository.deleteById(e.getId());
+    public void deleteEvent(Long id) 
+    {
+        try 
+        {
+            repo.deleteById(id);
+        } 
+        catch (EmptyResultDataAccessException e) 
+        {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, errorMessage);
         }
-    }
-
-    public void deleteEventById(Integer codigo) {
-        eventRepository.deleteById(codigo);
-	}
-
-    //rever funçao update
-	public Event updateEvent(Event e) {
-
-        Event alterar = getEventById(e.getId());
-        
-        if(alterar != null){
-            alterar.setId(e.getId());
-            alterar.setName(e.getName());
-            alterar.setDescription(e.getDescription());
-            alterar.setPlace(e.getPlace());
-            alterar.setStartDate(e.getStartDate());
-            alterar.setEndDate(e.getEndDate());
-            alterar.setStartTime(e.getStartTime());
-            alterar.setEndTime(e.getEndTime());
-            alterar.setEmailContact(e.getEmailContact());
-            alterar.setName(e.getName());
-            return alterar;     
-       }
-       else
-       {
-           return null;
-       }
-    }
-    
-    ////////TESTING////////
-    public void insereListaFunc(){
-        LocalDateTime time = LocalDateTime.now();
-        //eventRepository.save(new Event("Joao",52,"CEO","Escritorio A","CEO da empresa",time,1200.00,null));
     }
 }

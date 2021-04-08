@@ -1,11 +1,10 @@
 package com.example.ac1.services;
 
-import com.example.ac1.controllers.EventController;
+import java.util.Optional;
+
+import com.example.ac1.dto.DTO;
 import com.example.ac1.entidade.Event;
 import com.example.ac1.repositorio.EventRepository;
-import facens.example.ac1.dto.DTO;
-
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;

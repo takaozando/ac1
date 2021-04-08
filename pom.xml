@@ -8,10 +8,10 @@
 		<version>2.4.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>ac1</artifactId>
+	<groupId>com.facens.pooii</groupId>
+	<artifactId>event-control</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>ac1</name>
+	<name>event-control</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>14</java.version>
@@ -25,23 +25,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.19</version>
 			<scope>runtime</scope>
 		</dependency>
-		<dependency>
+			<dependency>
 			<groupId>org.eclipse.persistence</groupId>
 			<artifactId>org.eclipse.persistence.jpa</artifactId>
 			<version>2.7.8</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>

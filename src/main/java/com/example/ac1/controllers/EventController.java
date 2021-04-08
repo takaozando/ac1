@@ -1,14 +1,11 @@
 package com.example.ac1.controllers;
 
+import java.net.URI;
+
+import com.example.ac1.dto.DTO;
 import com.example.ac1.entidade.Event;
 import com.example.ac1.services.EventService;
-import com.example.ac1.repositorio.EventRepository;
 
-import facens.example.ac1.dto.DTO;
-import facens.example.ac1.entidade.Event;
-import facens.example.ac1.services.EventService;
-
-import java.net.URI;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;

@@ -1,7 +1,6 @@
 package com.example.ac1.repositorio;
 
-
-import facens.example.ac1.entidade.Event;
+import com.example.ac1.entidade.Event;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;

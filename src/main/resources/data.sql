@@ -1,2 +1,0 @@
-INSERT INTO event (name, description, place, startDate, endDate, startTime, endTime, email) 
-VALUES ('SpaceX','Falcon 9 Launch','Hawthorne, Califórnia, EUA','2018-02-06','2018-02-07','11:00:00','21:00:00','media@spacex.com')

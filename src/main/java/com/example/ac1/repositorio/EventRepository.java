@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface EventRepository extends JpaRepository <Event, Long> {
     
-    @Query(value = " select ev from event ev where " + 
+    @Query(value = " select ev from TB_event ev where " + 
                    " upper(ev.name) like upper(CONCAT('%', :ev.name,  '%')) and " +
                    " upper(ev.place) like upper(CONCAT('%', :ev.place, '%')) and " +
                    " upper(ev.description) like upper(CONCAT('%', :ev.description, '%')) and " +
